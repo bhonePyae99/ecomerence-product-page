@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Cart from "./Cart";
 const ProductPage = ({ showCart, setSelectedCount }) => {
-  const thumbnails = ["1", "2", "3", "4"];
+  const thumbnails = [1, 2, 3, 4];
   const [selectedImage, setSelectedImage] = useState(1);
   const [count, setCount] = useState(0);
   const product = {
@@ -48,6 +48,7 @@ const ProductPage = ({ showCart, setSelectedCount }) => {
             style={{ borderRadius: "100%", cursor: "pointer" }}
             onClick={() => {
               if (selectedImage < thumbnails.length) {
+                console.log(selectedImage);
                 setSelectedImage(selectedImage + 1);
               }
             }}
