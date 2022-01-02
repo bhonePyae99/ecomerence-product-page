@@ -137,11 +137,14 @@ const ProductPage = ({ showCart, setSelectedCount }) => {
               <div className="d-grid">
                 <button
                   className="btn orange"
+                  disabled={count === 0}
                   type="button"
                   style={{ color: "white" }}
                   onClick={() => {
-                    setSelectedCount(count);
-                    setCartProduct(product);
+                    if (count !== 0) {
+                      setSelectedCount(count);
+                      setCartProduct(product);
+                    }
                   }}
                 >
                   <i className="bi bi-cart"></i> Add To Cart
