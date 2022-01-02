@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Navbar = ({ handleState }) => {
+const Navbar = ({ handleState, selectedCount }) => {
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light"
@@ -33,7 +33,7 @@ const Navbar = ({ handleState }) => {
                 className="position-absolute top-0 start-100 translate-middle badge rounded-pill orange"
                 style={{ fontSize: "0.7rem" }}
               >
-                0
+                {selectedCount}
               </span>
             </i>
           </div>

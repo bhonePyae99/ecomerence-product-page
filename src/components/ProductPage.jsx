@@ -1,27 +1,63 @@
 import { useState } from "react";
 import Cart from "./Cart";
-const ProductPage = ({ showCart }) => {
+const ProductPage = ({ showCart, setSelectedCount }) => {
   const thumbnails = ["1", "2", "3", "4"];
   const [selectedImage, setSelectedImage] = useState(1);
+  const [count, setCount] = useState(0);
+  const product = {
+    name: "Fall Limited Edition Sneakers",
+    img: "../images/image-product-1-thumbnail.jpg",
+    price: 125,
+  };
+  const [cartProduct, setCartProduct] = useState({});
 
   const thumbnailSelect = (selected) => {
     setSelectedImage(selected);
   };
   return (
     <div className="container-xl mt-4">
-      <Cart showCart={showCart} />
+      <Cart
+        showCart={showCart}
+        cartProduct={cartProduct}
+        count={count}
+        setCartProduct={setCartProduct}
+        setSelectedCount={setSelectedCount}
+        setCount={setCount}
+      />
       <div className="row justify-content-center gap-5">
-        <div className="col-md-4">
+        <div className="col-md-4 position-relative">
           <img
             src={require(`../images/image-product-${selectedImage}.jpg`)}
             style={{ borderRadius: "16px" }}
             className="img-fluid"
             alt=""
           />
+          <div
+            className="position-absolute bottom-50 start-0 ms-3 bg-light d-md-none"
+            style={{ borderRadius: "100%", cursor: "pointer" }}
+            onClick={() => {
+              if (selectedImage > 1) {
+                setSelectedImage(selectedImage - 1);
+              }
+            }}
+          >
+            <i className="bi bi-chevron-left fs-2"></i>
+          </div>
+          <div
+            className="position-absolute bottom-50 end-0 me-3 bg-light d-md-none"
+            style={{ borderRadius: "100%", cursor: "pointer" }}
+            onClick={() => {
+              if (selectedImage < thumbnails.length) {
+                setSelectedImage(selectedImage + 1);
+              }
+            }}
+          >
+            <i className="bi bi-chevron-right fs-2"></i>
+          </div>
           <div className="container-fluid mt-3 p-0">
             <div className="row">
               {thumbnails.map((item) => (
-                <div className="col-3" key={item}>
+                <div className="col-3" key={item} style={{ cursor: "pointer" }}>
                   <div
                     className={
                       item === selectedImage
@@ -70,16 +106,28 @@ const ProductPage = ({ showCart }) => {
                 role="group"
                 aria-label="Basic outlined example"
               >
-                <button type="button" className="btn btn-light">
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  onClick={() => {
+                    if (count > 0) setCount(count - 1);
+                  }}
+                >
                   <i className="bi bi-dash-lg orange-text"></i>
                 </button>
                 <button
                   type="button"
                   className="btn btn-light btn-sm disable fw-bold"
                 >
-                  0
+                  {count}
                 </button>
-                <button type="button" className="btn btn-light">
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  onClick={() => {
+                    setCount(count + 1);
+                  }}
+                >
                   <i className="bi bi-plus-lg orange-text"></i>
                 </button>
               </div>
@@ -90,6 +138,10 @@ const ProductPage = ({ showCart }) => {
                   className="btn orange"
                   type="button"
                   style={{ color: "white" }}
+                  onClick={() => {
+                    setSelectedCount(count);
+                    setCartProduct(product);
+                  }}
                 >
                   <i className="bi bi-cart"></i> Add To Cart
                 </button>
