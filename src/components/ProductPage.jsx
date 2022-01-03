@@ -1,8 +1,14 @@
 import { useState } from "react";
 import Cart from "./Cart";
-const ProductPage = ({ showCart, setSelectedCount }) => {
+
+const ProductPage = ({
+  showCart,
+  setSelectedCount,
+  setShowModal,
+  selectedImage,
+  setSelectedImage,
+}) => {
   const thumbnails = [1, 2, 3, 4];
-  const [selectedImage, setSelectedImage] = useState(1);
   const [count, setCount] = useState(0);
   const product = {
     name: "Fall Limited Edition Sneakers",
@@ -25,12 +31,18 @@ const ProductPage = ({ showCart, setSelectedCount }) => {
         setCount={setCount}
       />
       <div className="row justify-content-center gap-5">
-        <div className="col-md-4 position-relative">
+        <div
+          className="col-md-4 position-relative"
+          style={{ cursor: "pointer" }}
+        >
           <img
             src={require(`../images/image-product-${selectedImage}.jpg`)}
             style={{ borderRadius: "16px" }}
             className="img-fluid"
             alt=""
+            onClick={() => {
+              setShowModal(true);
+            }}
           />
           <div
             className="position-absolute bottom-50 start-0 ms-3 bg-light d-md-none"
